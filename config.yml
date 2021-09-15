@@ -1,0 +1,76 @@
+baseURL: 'https://ryusstory.github.io/'
+title: 'Ryusstory'
+baseurl: /
+paginate: '10'
+theme: mainroad
+disqusShortname: ''
+googleAnalytics: ''
+Author:
+  name: 류영무
+  bio: >-
+    John Doe's true identity is unknown. Maybe he is a successful blogger or
+    writer. Nobody knows it.
+  avatar: img/avatar.png
+Params:
+  subtitle: ''
+  description: John Doe's Personal blog about everything
+  copyright: John Doe
+  opengraph: true
+  schema: true
+  twitter_cards: true
+  readmore: false
+  authorbox: true
+  toc: true
+  pager: true
+  post_meta:
+    - author
+    - date
+    - categories
+    - translations
+  mainSections:
+    - post
+    - blog
+    - news
+  dateformat: '2006-01-02'
+  mathjax: true
+  mathjaxPath: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js'
+  mathjaxConfig: TeX-AMS-MML_HTMLorMML
+  googleFontsLink: 'https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700'
+  highlightColor: ''
+  customCSS:
+    - css/custom.css
+  customJS:
+    - js/custom.js
+  style:
+    vars:
+      highlightColor: '#e22d30'
+      fontFamilyPrimary: '''Open Sans'', Helvetica, Arial, sans-serif'
+      fontFamilySecondary: >-
+        SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier
+        New', monospace
+  logo:
+    image: img/placeholder.png
+    title: Ryusstory
+    subtitle: Brainprints
+  thumbnail:
+    visibility:
+      - list
+      - post
+  sidebar:
+    home: right
+    list: left
+    single: false
+    widgets:
+      - search
+      - recent
+      - categories
+      - taglist
+      - social
+      - languages
+  widgets:
+    recent_num: 5
+    categories_counter: false
+    tags_counter: false
+    social:
+      github: "ryusstory"
+      email: ryusstory@gmail.com
