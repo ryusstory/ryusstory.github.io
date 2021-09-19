@@ -3,17 +3,18 @@ title: 'Ryusstory'
 baseurl: /
 paginate: '10'
 theme: mainroad
-disqusShortname: 'ryusstory'
+disqusShortname: ''
 googleAnalytics: ''
 Author:
-  name: Ryusstory
+  name: 류영무
   bio: >-
-    류영무. DevOps
+    John Doe's true identity is unknown. Maybe he is a successful blogger or
+    writer. Nobody knows it.
   avatar: img/avatar.png
 Params:
-  subtitle: 'tech and review'
-  description: Ryu's Personal blog about everything
-  copyright: 류영무
+  subtitle: ''
+  description: John Doe's Personal blog about everything
+  copyright: John Doe
   opengraph: true
   schema: true
   twitter_cards: true
@@ -48,7 +49,7 @@ Params:
         SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier
         New', monospace
   logo:
-    image: img/noise.jpg
+    image: img/placeholder.png
     title: Ryusstory
     subtitle: Brainprints
   thumbnail:
