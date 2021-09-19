@@ -340,6 +340,6 @@ nginx-to-scaleout   3/3     3            3           15m
 ### 삭제시
 클라우드포메이션도 마찬가지겠지만 삭제시에는 eks에서 로드밸런서와 같은 AWS 자원을 삭제 후 테라폼을 삭제해야한다.
 
-그래서 `kubectl get deployment --all-namespaces`등으로 kube-system 외의 네임스페이스에서 배포된 자원들을 삭제 후 
+그래서 `kubectl get deployment --all-namespaces`등으로 확인해서 kube-system 외의 네임스페이스에서 배포된 자원들을 삭제 후 
 
 `terraform destroy -var home_cidr=1.2.3.4/32` 명령어를 통해 자원을 삭제하면 된다.
