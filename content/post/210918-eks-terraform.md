@@ -265,7 +265,7 @@ Powershell의 경우에는 기본적으로 파워셀에서 파워셀 스크립�
 
 ### 위 내용을 구성도로 그리면 아래와 같다.
 
-> 이미지
+![image](https://user-images.githubusercontent.com/20898758/133926419-dd739d6b-3199-460f-ba5b-d2c0de5b177f.png)
 
 ## AWS EKS on Nodegroup
 
