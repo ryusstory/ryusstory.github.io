@@ -8,12 +8,12 @@ googleAnalytics: ''
 Author:
   name: Ryusstory
   bio: >-
-    류영무. DevOps
+    Ryu. DevOps
   avatar: img/avatar.png
 Params:
   subtitle: 'tech and review'
   description: Ryu's Personal blog about everything
-  copyright: 류영무
+  copyright: Ryusstory
   opengraph: true
   schema: true
   twitter_cards: true
