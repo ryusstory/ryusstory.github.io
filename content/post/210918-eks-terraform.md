@@ -33,11 +33,11 @@ CloudNet@에서 진행하는 AKOS(AWS Kubernetes Online Study)를 진행하면�
 
 ### 테라포밍
 
-지금은 클라우드 포메이션이 어떻게 변했는지는 잘 모르지만 과거에 클라우드 포메이션을 쓰면서 변경(업데이트)시 동작이 약간 아쉬운 점이 있었다. 그래서 EKS 테라포밍도 공부하면서 스터디를 할 생각으로 테라폼으로 이를 작성 해봤다.
+현재 사용하고 있는 메인 툴이 클라우드 포메이션이기도 하고, 과거에 클라우드 포메이션으로 약간 아쉬운 점도 있었기에, EKS 테라포밍으로 공부하면서 스터디를 할 생각으로 테라폼으로 이를 작성 해봤다.
 
-> 그렇다고해서 테라폼을 사용한다고 클라우드포메이션에 있는 단점이 다 해결되는 것은 또 아니며, 둘다 작성해 보면 알겠지만 어떤 방식을 사용해도 장단점은 존재하며 그걸 어떻게 수용할지는 본인의 선택이다.  \
-> 예를들면 테라폼에서 프로그래밍 혹은 bash에서 curl로 다양한 값들을 가져와서 처리를 하고 싶지만 그러기엔 좀 더 HCL(Hashcorp Configuration Language)을 깊게 공부해야하며 나름의 한계가 보이는 부분도 있다. \
-> Python의 boto3를 사용해 리소스 배포와 같은 스크립트를 작성한다고 하면 클라우드포메이션이나 테라폼같은 툴들과는 다른 자유도에 행복할 수 있으나 기존의 툴들에서 제공하는 상태를 저장하는 기능에 대해서는 또 직접 구현하거나 멱등성을 고려해서 하나하나 코드를 작성해야한다.
+> 테라폼과 클라우드포메이션 등 리소스를 배포하는데는 다양한 방법이 있는데 어떤 방식을 사용해도 장단점은 존재하며 그걸 어떻게 수용할지는 본인의 선택이다.  \
+> 예를 들면 테라폼에서 프로그래밍 혹은 bash에서 curl로 다양한 값들을 가져와서 처리하고 싶지만 그러기엔 좀 더 HCL(Hashcorp Configuration Language)을 깊게 공부해야 하며 나름의 한계가 보이는 부분도 있다. \
+> Python의 boto3를 사용해 리소스 배포와 같은 스크립트를 작성한다고 하면 클라우드포메이션이나 테라폼같은 툴들과는 다른 자유도에 행복할 수 있으나 기존의 툴들에서 제공하는 상태를 저장하는 기능에 대해서는 또 직접 구현하거나 멱등성을 고려해서 하나하나 코드를 작성해야 한다.
 
 테라폼을 작성함에 있어 가능하면 eksctl을 사용하지 않으면서 진행하려 했다.
 eksctl이 대부분 작업을 해주는 것은 cloudformation을 통해 필요한 리소스를 생성해주는 것인데, 이는 충분히 테라폼으로 커버가 가능하다고 생각했다.
@@ -49,7 +49,7 @@ eksctl이 대부분 작업을 해주는 것은 cloudformation을 통해 필요�
 4. 테라폼 문서 확인
 5. 구글 서칭 (특정 기능은 테라폼에서 만들어서 제공하기도 하고, 그 외에 사용자들이 작성한 모듈에서도 도움을 많이 받았다.)
 
-이런 방식을 번갈아 가며 확인하며 진행했다. eksctl의 경우 실행후 클라우드포메이션에서 템플릿과 리소스를 테라폼으로 옮겼다.
+이런 방식을 번갈아 가며 확인하며 진행했다. eksctl의 경우 실행 후 클라우드포메이션에서 템플릿과 리소스를 테라폼으로 옮겼다.
 
 ### 테라폼 템플릿
 
@@ -69,7 +69,7 @@ main 브랜치에는 eks_cluster까지만 구성하고, 각각 feature/nodegroup
 
 클론을 받아야 하는데, nodegroup용 branch와 fargate용 브랜치를 나눠놨다.
 
-그래서 필요한 대로 받으면되고, main 브랜치의 경우 eks cluster까지만 구성되도록 해놨다.
+그래서 필요한 대로 받으면 되고, main 브랜치의 경우 eks cluster까지만 구성되도록 해놨다.
 
 ```
 git clone -b eks-ec2node https://github.com/ryusstory/eks-study-terraform.git
@@ -119,21 +119,21 @@ variable "home_cidr" {
 ```
 그 외에도 [노드그룹등 설정](https://github.com/ryusstory/eks-study-terraform/blob/c48ba8cc47dd1acfad7a9ef327e6068c7fbac659/01.variables.tf#L48-L64)정도가 포함되어 있다.
 
-위와 같이 설정하면 `terraform apply`만으로 바로 배포가 가능하다. `terraform deploy`를 사용해 지울때도 변수입력이 필요하기 때문에 변수를 미리 설정해두는 하는 방법이 가장 좋다.
+위와 같이 설정하면 `terraform apply`만으로 바로 배포가 가능하다. `terraform deploy`를 사용해 지울 때도 변수입력이 필요하기 때문에 변수를 미리 설정해두는 하는 방법이 가장 좋다.
 
 ### 배포 완료 후 kubectl 설정
 
-배포완료되면 바로 kubectl을 사용할 수 있으며 [`aws eks update-kubeconfig --name k8s-eks` 를 사용해서 ~/.kube/config 파일을 생성](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/create-kubeconfig.html)해 준다. 
+배포가 완료되면 바로 kubectl을 사용할 수 있으며 [`aws eks update-kubeconfig --name k8s-eks` 를 사용해서 ~/.kube/config 파일을 생성](https://docs.aws.amazon.com/ko_kr/eks/latest/userguide/create-kubeconfig.html)해 준다. 
 
 해당 커맨드는 배포 완료 후 output에서 확인할 수 있고, `terraform output`을 입력해도 볼 수 있다.
 
-현재 사용하고 있는 credential 기준으로 업데이트 된다. 예를 들면 사용하는 PC 에서는 `~/.aws/credentials` 파일을 참고하고 EC2 IAM Profile이 있는 EC2에서는 Iam Role 을 기준으로 업데이트 된다.
+현재 사용하고 있는 credential 기준으로 업데이트된다. 예를 들면 사용하는 PC 에서는 `~/.aws/credentials` 파일을 참고하고 EC2 IAM Profile이 있는 EC2에서는 Iam Role 을 기준으로 업데이트된다.
 
 (EC2 IAM Profile을 생성하는 부분은 여기를 참고)[https://github.com/ryusstory/eks-study-terraform/blob/8711ae552473ec76f2e984372e424d2d0598148a/40.eks_bastion_host.tf#L32-L63]하면 된다.
 
 ### bastion host에서 kubectl 사용하기 (kubectl권한을 다른 IAM 사용자에게도 설정)
 
-좀 더 이상적인 모델을 위해 bastion host에는 별도 access key를 사용하지 않고, EC2 IAM Profile 을 통해 권한을 부여하도록 했다. 그러다보니 해당 IAM Role에 kubectl 권한을 줘야 하는데, kubectl 로 컨피그를 받아서 sed로 해당 내용을 추가해서 적용하는 방법도 있긴 한데, 이 경우 윈도우에서 사용할수가 없어 수동으로 추가하기로 했고, 아래 두 자료를 참고해 직접 넣는 방법을 사용하기로 했다.
+좀 더 이상적인 모델을 위해 bastion host에는 별도 access key를 사용하지 않고, EC2 IAM Profile 을 통해 권한을 부여하도록 했다. 그러다 보니 해당 IAM Role에 kubectl 권한을 줘야 하는데, kubectl 로 컨피그를 받아서 sed로 해당 내용을 추가해서 적용하는 방법도 있긴 한데, 이 경우 윈도우에서 사용할 수가 없어 수동으로 추가하기로 했고, 아래 두 자료를 참고해 직접 넣는 방법을 사용하기로 했다.
 
 - [Amazon EKS에서 클러스터를 생성한 후 다른 IAM 사용자 및 역할이 액세스할 수 있도록 하려면 어떻게 해야 합니까?
 ](https://aws.amazon.com/ko/premiumsupport/knowledge-center/amazon-eks-cluster-access/)
@@ -142,7 +142,7 @@ variable "home_cidr" {
 
 `kubectl edit -n kube-system configmap/aws-auth` 명령어를 치면 윈도우의 경우 메모장, 리눅스의 경우 vi 편집기가 나온다.
 
-그러면 보통 아래와 같은 출력이 나오는데 중간의 추가해야할 곳에 IAM Role 에 대한 컨피그를 추가해야 한다.
+그러면 보통 아래와 같은 출력이 나오는데 중간의 추가해야 할 곳에 IAM Role 에 대한 컨피그를 추가해야 한다.
 ```yaml
 # Please edit the object below. Lines beginning with a '#' will be ignored,
 # and an empty file will abort the edit. If an error occurs while saving this file will be
@@ -157,14 +157,14 @@ data:
       - system:node-proxier
       rolearn: arn:aws:iam::123456789012:role/k8s-eks-fargate-profile
       username: system:node:{{SessionName}}
-# ------------ 추가해서 넣어야할 곳 ------------
+# ------------ 추가해서 넣어야 할 곳 ------------
 kind: ConfigMap
 metadata:
   ---생략---
 ```
 
 [configmap.yml 파일은 테라폼에서 iam_role 부분을 가져와서 직접 생성](https://github.com/ryusstory/eks-study-terraform/blob/8711ae552473ec76f2e984372e424d2d0598148a/40.eks_bastion_host.tf#L185-L196)했다.
-`data:`, `mapRoles:` 의 내용을 줄맞춤을 위한 출력이라 붙여넣으면 안된다.
+`data:`, `mapRoles:` 의 내용을 줄 맞춤을 위한 출력이라 붙여넣으면 안 된다.
 
 `./output/configmap.yml` 을 열어보면 아래와 같은 내용이 나오는데 mapRoles 아래의 내용을 `kubectl edit -n kube-system configmap/aws-auth`에 나온 편집기에 mapRoles 리스트에 붙여넣어주면 된다.
 
@@ -205,13 +205,13 @@ metadata:
   uid: 67b19ca3-b8e3-4570-bf24-a03c0ae49cc5
 ```
 
-위 처럼 만들고 저장하고 닫으면 바로 설정이 적용된다.
+위처럼 만들고 저장하고 닫으면 바로 설정이 적용된다.
 
 bastion host가 배포될 때 마지막 스크립트에 `aws eks update-kubeconfig --name k8s-eks`를 통해 kubeconfig를 업데이트하도록 해놨는데, 이게 먹힐 때가 있고 안 먹힐 때가 있다. 그 이유는 cluster 생성중에는 해당 커맨드를 사용할 수가 없어 EKS Cluster보다 Bastion host가 먼저 생성될 경우 `Cluster status is CREATING` 메세지와 함께 업데이트 되지 않는다.
 
 아무튼 bastion host에서도 테라폼 생성 완료 후 aws-auth를 설정하고 `aws eks update-kubeconfig --name k8s-eks` 설정을 해주면 된다.
 
-### (option) bastion_host 접속시 윈도우에서 keypair 파일 권한
+### (option) bastion_host 접속 시 윈도우에서 keypair 파일 권한
 
 putty와 같은 ssh 접속 프로그램을 사용하면 아래와 같은 문제는 없는데, 윈도우에서 예전에는 지원을 안했지만 이제는 단순히 cmd창 혹은 powershell창에서 `ssh`를 사용할 수 있어서 해당 방식으로 접근할때는 아래와 같은 작업이 필요하다.
 
@@ -225,7 +225,7 @@ This private key will be ignored.
 Load key "./outputs/aws_ssh_keypair.pem": bad permissions
 ```
 
-리눅스나 맥의 경우 단순히 파일 생성시 권한을 400으로 설정해서 바로 접근이 가능하지만 윈도우의 경우 테라폼에서 이러한 권한을 설정할 수가 없기 때문에 직접 권한 상속을 처리해줘야해서 좀 귀찮지만 직접 스크립트를 사용해야 한다.
+리눅스나 맥의 경우 단순히 파일 생성 시 권한을 400으로 설정해서 바로 접근이 가능하지만 윈도우의 경우 테라폼에서 이러한 권한을 설정할 수가 없기 때문에 직접 권한 상속을 처리해줘야해서 좀 귀찮지만 직접 스크립트를 사용해야 한다.
 
 [GUI를 통해 설정하는 방법](https://techsoda.net/windows10-pem-file-permission-settings/)도 있긴 하지만 스크립트를 사용하면 더 간단하다.
 
@@ -255,7 +255,7 @@ Powershell의 경우에는 기본적으로 파워셀에서 파워셀 스크립�
 └─outputs                   # aws keypair 등 output이 생겼을때 파일을 담을 폴더
 ```
 
-각 두자리 숫자마다 사용하려는 용도 정리를 하면 아래와 같다.
+각 두 자리 숫자마다 사용하려는 용도 정리를 하면 아래와 같다.
 
 00 대역은 기본적인 설정
 10 대역은 기본적인 인프라 설정
@@ -310,7 +310,7 @@ https://aws.amazon.com/amazon-linux-2/
 
 하지만 기본적으로 EC2 노드그룹에서 사용하던 eks cluster는 fargate로 사용하려면 문제가 있었다.
 
-배포직후 coredns 상태를 보면 아래와 같다
+배포 직후 coredns 상태를 보면 아래와 같다
 ```
 [root@eksctl-host ~]# kubectl get deployment -n kube-system
 NAME      READY   UP-TO-DATE   AVAILABLE   AGE
@@ -337,9 +337,9 @@ nginx-to-scaleout   3/3     3            3           15m
 [root@eksctl-host ~]#
 ```
 
-### 삭제시
-클라우드포메이션도 마찬가지겠지만 삭제시에는 eks에서 로드밸런서와 같은 AWS 자원을 삭제 후 테라폼을 삭제해야한다.
+### 리소스 삭제
+클라우드포메이션도 마찬가지겠지만 삭제 시에는 eks에서 로드밸런서와 같은 AWS 자원을 삭제 후 테라폼을 삭제해야 한다.
 
-그래서 `kubectl get deployment --all-namespaces`등으로 kube-system 외의 네임스페이스에서 배포된 자원들을 삭제 후 
+그래서 `kubectl get deployment --all-namespaces`등으로 확인해서 kube-system 외의 네임스페이스에서 배포된 자원들을 삭제 후 
 
-`terraform destroy -var home_cidr=112.187.240.127/32` 명령어를 통해 자원을 삭제하면 된다.
+`terraform destroy -var home_cidr=1.2.3.4/32` 명령어를 통해 자원을 삭제하면 된다.
