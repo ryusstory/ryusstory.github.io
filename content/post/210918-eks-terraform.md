@@ -342,4 +342,4 @@ nginx-to-scaleout   3/3     3            3           15m
 
 그래서 `kubectl get deployment --all-namespaces`등으로 kube-system 외의 네임스페이스에서 배포된 자원들을 삭제 후 
 
-`terraform destroy -var home_cidr=112.187.240.127/32` 명령어를 통해 자원을 삭제하면 된다.
+`terraform destroy -var home_cidr=1.2.3.4/32` 명령어를 통해 자원을 삭제하면 된다.
