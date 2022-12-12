@@ -12,7 +12,7 @@ menu: main # Optional, add page to a menu. Options: main, side, footer
 
 # Theme-Defined params
 # thumbnail:  "img/placeholder.png" # Thumbnail image
-lead: "다시 블로그를 시작하며" # Lead text
+lead: " Cloudfront 와 ALB 보안그룹 설정 테라폼으로만 구성하기" # Lead text
 comments: false # Enable Disqus comments for specific page
 authorbox: true # Enable authorbox for specific page
 pager: true # Enable pager navigation (prev/next) for specific page
@@ -25,9 +25,6 @@ widgets: # Enable sidebar widgets in given order per page
   - "categories"
   - "taglist"
 ---
-
-
-## Cloudfront 와 ALB 보안그룹 설정 테라폼으로만 구성하기
 
 ## 소개
 
