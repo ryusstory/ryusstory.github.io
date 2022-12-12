@@ -10,7 +10,7 @@
 
 먼저 보통 Cloudfront를 붙여서 구성하게 되면 아래와 같이 인프라가 구성되게 됩니다.
 
-![Untitled](Cloudfront%20%E1%84%8B%E1%85%AA%20ALB%20%E1%84%87%E1%85%A9%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%80%E1%85%B3%E1%84%85%E1%85%AE%E1%86%B8%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%20%E1%84%90%E1%85%A6%E1%84%85%E1%85%A1%E1%84%91%E1%85%A9%E1%86%B7%E1%84%8B%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A1%E1%86%AB%20d1f0440306dc436484aaa1250daf4db9/Untitled.png)
+![image](https://user-images.githubusercontent.com/20898758/207043038-fadd5e46-faa8-4ae9-87d4-3e130cb6e9e9.png)
 
 Cloudfront를 통해서 내부 인프라에 접근하는 구성인데요. 유저는 실제 Cloudfront랑 통신하고 Cloudfront가 내부 S3나 ALB와 연결을 중계 해주는 방식입니다.
 
@@ -436,7 +436,7 @@ ryusstory@Rucas-MacBookPro ~/provider_test 7s ❯
 
 생각한대로 3개 그룹이 잘 생성됐네요 AWS에 들어가서 한번 보겠습니다.
 
-![Untitled](Cloudfront%20%E1%84%8B%E1%85%AA%20ALB%20%E1%84%87%E1%85%A9%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%80%E1%85%B3%E1%84%85%E1%85%AE%E1%86%B8%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%20%E1%84%90%E1%85%A6%E1%84%85%E1%85%A1%E1%84%91%E1%85%A9%E1%86%B7%E1%84%8B%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A1%E1%86%AB%20d1f0440306dc436484aaa1250daf4db9/Untitled%201.png)
+![image](https://user-images.githubusercontent.com/20898758/207043119-351592d0-54bf-4ce9-975f-a94191bd32ac.png)
 
 항목도 55 55 23으로 잘 나왔고 description도 잘 나왔네요! 그런데 index가 0부터 되니까 좀 보기 싫네요!
 
@@ -453,6 +453,6 @@ resource "aws_security_group" "cloudfront" {
 }
 ```
 
-만족
 
-![Untitled](Cloudfront%20%E1%84%8B%E1%85%AA%20ALB%20%E1%84%87%E1%85%A9%E1%84%8B%E1%85%A1%E1%86%AB%E1%84%80%E1%85%B3%E1%84%85%E1%85%AE%E1%86%B8%20%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC%20%E1%84%90%E1%85%A6%E1%84%85%E1%85%A1%E1%84%91%E1%85%A9%E1%86%B7%E1%84%8B%E1%85%B3%E1%84%85%E1%85%A9%E1%84%86%E1%85%A1%E1%86%AB%20d1f0440306dc436484aaa1250daf4db9/Untitled%202.png)
+![image](https://user-images.githubusercontent.com/20898758/207043135-92a20bc5-0d48-40e0-90df-f1c00dee8663.png)
+만족
