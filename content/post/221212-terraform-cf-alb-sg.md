@@ -214,7 +214,7 @@ variable "foo" {
  `terraform console` 을 입력하면 아래처럼 프롬프트가 뜨게 되는데 현재 폴더의 tf파일을 읽어온 채로 console을 실행하게 됩니다!
 
 ```jsx
-ryusstory@Rucas-MacBookPro ~/provider_test ❯ tf init   
+❯ tf init   
 
 Initializing the backend...
 
@@ -457,7 +457,7 @@ aws_security_group.cloudfront[1]: Creation complete after 2s [id=sg-00c06a56dce4
 aws_security_group.cloudfront[0]: Creation complete after 2s [id=sg-0a2bf94b78840ae04]
 
 Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
-ryusstory@Rucas-MacBookPro ~/provider_test 7s ❯
+❯
 ```
 
 생각한대로 3개 그룹이 잘 생성됐네요 AWS에 들어가서 한번 보겠습니다.
