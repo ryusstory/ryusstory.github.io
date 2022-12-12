@@ -1,12 +1,41 @@
-# Cloudfront 와 ALB 보안그룹 설정 테라폼으로만 구성하기
+---
+title: "Hello World"
+date: 2021-09-15T21:52:55+09:00
+description: "Example article description"
+categories:
+  - "tech"
+tags:
+  - "terraform"
+  - "aws"
+  - "t101"
+menu: main # Optional, add page to a menu. Options: main, side, footer
 
-# 소개
+# Theme-Defined params
+# thumbnail:  "img/placeholder.png" # Thumbnail image
+lead: "다시 블로그를 시작하며" # Lead text
+comments: false # Enable Disqus comments for specific page
+authorbox: true # Enable authorbox for specific page
+pager: true # Enable pager navigation (prev/next) for specific page
+toc: true # Enable Table of Contents for specific page
+mathjax: false # Enable MathJax for specific page
+sidebar: "right" # Enable sidebar (on the right side) per page
+widgets: # Enable sidebar widgets in given order per page
+  - "search"
+  - "recent"
+  - "categories"
+  - "taglist"
+---
+
+
+## Cloudfront 와 ALB 보안그룹 설정 테라폼으로만 구성하기
+
+## 소개
 
 이 글을 쓰게 된 계기는 다른 글을 쓰다가 Cloudfront와 ALB의 보안 구성을 어떻게 하면 테라폼으로 편하게 배포할까 고민하다가 생각보다 잘 동작하는걸 보고 쓰게 되었습니다.
 
 기존에 lambda를 통해 보안그룹을 업데이트가 가능하지만 이를 테라폼으로 가능한 것을 확인하고 quota를 적용하지 않고 순수 상태로 cloudfront용 보안그룹을 만들어 보려합니다.
 
-# Cloudfront와 ALB의 보안구성
+## Cloudfront와 ALB의 보안구성
 
 먼저 보통 Cloudfront를 붙여서 구성하게 되면 아래와 같이 인프라가 구성되게 됩니다.
 
@@ -27,9 +56,9 @@ S3의 경우 OAI (Origin Access Identity)로 쉽게(?) 구성이 가능하지만
 
 이 글에서는 저 Lambda에서 하는 일을 Terraform에서 적용하는 걸 해보려 합니다.
 
-# 사전에 알아야 할 지식
+## 사전에 알아야 할 지식
 
-## AWS Limits
+### AWS Limits
 
 아마존을 사용해 보신 분들은 많이들 겪어서 아시겠지만 생각보다 AWS에는 Limitation이 많습니다.
 
@@ -122,7 +151,7 @@ S3의 경우 OAI (Origin Access Identity)로 쉽게(?) 구성이 가능하지만
 
 아까 말씀드린 quota를 증가시키지 않고 적용할 경우 60개를 꽉꽉 채운다고 했을 때, 133/60 하면 최소 3개의 보안그룹이 필요하겠네요. 
 
-## 최소 지식 조건 loop
+### 최소 지식 조건 loop
 
 다른 언어를 통해서도 좋고 테라폼을 통해서도 좋고 적어도 loop 에 대해서는 조금 이해가 있어야 쉽게 보실 수 있습니다.
 
@@ -134,7 +163,7 @@ S3의 경우 OAI (Origin Access Identity)로 쉽게(?) 구성이 가능하지만
 
 [https://developer.hashicorp.com/terraform/language/meta-arguments/count](https://developer.hashicorp.com/terraform/language/meta-arguments/count)
 
-# 선구자가 이미 있다
+## 선구자가 이미 있다
 
 이걸 어떻게 적용할까 고민하다가 찾아보니 이미 외국에 적용한 사람이 있더라구요. 그것도 무려 2019년에… 
 
@@ -146,7 +175,7 @@ S3의 경우 OAI (Origin Access Identity)로 쉽게(?) 구성이 가능하지만
 
 그리고 위 블로그는 133개 IP를 30개씩 나눠서 5개 보안 그룹을 사용하는데요. 그렇게 되면 Cloudfront 용도 보안그룹으로만 가득 채워지게 되니까 사용하기 좀 안좋을 것 같아서 좀 개선을 하고 싶었고, 어떤 과정을 통해서 적용했는지 정리해봤습니다.
 
-# data를 까보자 with terraform console
+## data를 까보자 with terraform console
 
 약간 제가 삽질할때 쓰는 도구인데요. console이 생각보다 별로지만(?) 생각보다 유용합니다
 
@@ -307,7 +336,7 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 
 그리고 description에 create_date를 한번 넣어볼게요.
 
-# terraform에서 어떻게 적용할지 고민을 해보자
+## terraform에서 어떻게 적용할지 고민을 해보자
 
 자 이제 133개를 아까 할당량으로 보면 최대 60개인데 꽉 채울수도 있을것 같지만 왠지 꽉 채우면 아무래도 좀 찝찝하니까 55개로 해보겠습니다. 왜냐면… 50개는 17개만 대역이 추가되면 보안그룹 개수가 하나 늘어야 하니까… 
 
@@ -315,7 +344,7 @@ Apply complete! Resources: 0 added, 0 changed, 0 destroyed.
 
 그러면 55개로 하면 55 + 55 + 23 = 133 이렇게 들어가면 마지막 보안그룹에 들어갈 ingress rule이  23/55(41%)로 뭔가 좀 안정감을 얻을 수 있을것 같습니다. 
 
-# 블로그의 좋은 것들을 훔쳐오자
+## 블로그의 좋은 것들을 훔쳐오자
 
 그렇다면 이제 앞의 블로그에서 본 것중에서 chunklist만 마저 훔쳐오면 될 것 같습니다.
 
@@ -379,7 +408,7 @@ tolist([
 
 이제 이걸 테라폼으로 넣어봅시다!
 
-# 이제 테라폼을 만들어봅시다
+## 이제 테라폼을 만들어봅시다
 
 먼저 위에서 해봤던 chunklist로 55개로 나눠주고 local 변수에 넣어줍니다.
 
